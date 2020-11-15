@@ -11,20 +11,21 @@ namespace JWT_Test
 {
     public class JwtAuthenticationManager : IJwtAuthenticationManager
     {
-        // just setting up some test users for testing only
+        // FAKE DATABASE (for testing) ----------------------------------------------------
         private readonly IDictionary<string, string> users = new Dictionary<string, string>
         {
             {"test1", "password1"},
             {"test2", "password2"}
         };
+        // --------------------------------------------------------------------------------
 
         private readonly string key;
-
         public JwtAuthenticationManager(string key)
         {
             this.key = key;
         }
 
+        // take the login details and either return an auth token or return null
         public string Authenticate(string username, string password)
         {
             if (!users.Any(u => u.Key == username && u.Value == password))
@@ -48,6 +49,7 @@ namespace JWT_Test
                     )
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
+
             return tokenHandler.WriteToken(token);
         }
     }

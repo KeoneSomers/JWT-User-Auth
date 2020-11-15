@@ -21,9 +21,9 @@ namespace JWT_Test.Controllers
         // HANDLE LOGIN REQUEST ----------------------------------------------------------------------------------
         [AllowAnonymous]
         [HttpPost("login")]
-        public IActionResult Authenticate([FromBody] UserCred userCred)
+        public IActionResult Authenticate([FromBody] UserModel userModel)
         {
-            var token = jwtAuthenticationManager.Authenticate(userCred.Username, userCred.Password);
+            var token = jwtAuthenticationManager.Authenticate(userModel.Username, userModel.Password);
 
             if (token == null)
                 return Unauthorized();
@@ -34,9 +34,7 @@ namespace JWT_Test.Controllers
         [HttpGet]
         public string Get()
         {
-            var data = "You are authroize to see this data!";
-
-            return data;
+            return "You are authroize to see this data!";
         }
     }
 }
